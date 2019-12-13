@@ -1,3 +1,6 @@
-/target
-**/*.rs.bk
-Cargo.lock
+songname/native/target
+songname/native/index.node
+songname/native/artifacts.json
+**/*~
+**/node_modules
+**/.DS_Store

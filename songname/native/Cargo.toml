@@ -1,0 +1,22 @@
+[package]
+name = "spotify-song-name"
+version = "0.1.0"
+authors = ["Rihards Paskausks <pundurs@glhf.lv>"]
+edition = "2018"
+license = "MIT"
+build = "build.rs"
+exclude = ["artifacts.json", "index.node"]
+
+[lib]
+name = "spotify_song_name"
+crate-type = ["cdylib"]
+
+[target.'cfg(windows)'.dependencies]
+winapi = { version = "0.3.8", features = ["tlhelp32", "winuser", "handleapi"] }
+
+[dependencies]
+neon = "0.3.3"
+
+[build-dependencies]
+neon-build = "0.3.3"
+

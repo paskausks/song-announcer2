@@ -1,4 +1,8 @@
 extern crate winapi;
+
+#[macro_use]
+extern crate neon;
+
 use std::mem::size_of;
 use std::ffi::CStr;
 use std::os::raw::c_char;
@@ -25,6 +29,7 @@ use winapi::shared::minwindef::{
 use winapi::um::handleapi::{ INVALID_HANDLE_VALUE, CloseHandle };
 use winapi::shared::windef::HWND;       // isize
 use winapi::shared::minwindef::LPARAM;  // isize
+use neon::prelude::*;
 
 type WindowTitleVec = Vec<String>;
 
@@ -191,7 +196,7 @@ fn get_window_title(handle: HWND, titles: LPARAM) {
 }
 
 #[cfg(windows)]
-pub fn get_song_title() -> Result<String, SongTitleFetchError> {
+fn winapi_get_song() -> Result<String, SongTitleFetchError> {
     let title_matrix: Vec<WindowTitleVec> = get_spotify_pids().unwrap()
         .into_iter()
         .fold(Vec::new(), |acc, x| [acc, get_thread_ids(&x)].concat())
@@ -212,11 +217,18 @@ pub fn get_song_title() -> Result<String, SongTitleFetchError> {
     Ok(String::from(window_titles[0].to_owned()))
 }
 
-#[cfg(windows)]
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
+fn get_song(mut cx: FunctionContext) -> JsResult<JsString> {
+    let result = match winapi_get_song() {
+        Ok(song) => song,
+        Err(err) => match err {
+            SongTitleFetchError::SpotifyNotRunning => panic!("Spotify not running or playing!"),
+            SongTitleFetchError::MultipleResults => panic!("Multiple results returned!"),
+        }
+    };
+
+    Ok(cx.string(result))
 }
+
+register_module!(mut cx, {
+    cx.export_function("songName", get_song)
+});

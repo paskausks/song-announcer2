@@ -1,0 +1,14 @@
+{
+  "name": "spotify-song-name",
+  "version": "0.1.0",
+  "description": "Get currently playing Spotify song",
+  "main": "lib/index.js",
+  "author": "Rihards Paskausks <pundurs@glhf.lv>",
+  "license": "MIT",
+  "dependencies": {
+    "neon-cli": "^0.3.3"
+  },
+  "scripts": {
+    "install": "neon build"
+  }
+}
