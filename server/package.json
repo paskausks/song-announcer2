@@ -1,0 +1,36 @@
+{
+  "name": "song-announcer",
+  "version": "2.0.0",
+  "description": "Display the currently playing Spotify song.",
+  "main": "dist/index.js",
+  "private": true,
+  "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "@typescript-eslint/eslint-plugin": "^2.11.0",
+    "@typescript-eslint/parser": "^2.11.0",
+    "eslint": "^6.7.2",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-jest": "^23.1.1",
+    "jest": "^24.9.0",
+    "nodemon": "^2.0.2",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.3"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "concurrently -p \"[{name}]\" -n \"TSC,Node\" \"npm run build:watch:tsc\" \"npm run build:watch:node\"",
+    "build:watch:tsc": "tsc -w",
+    "build:watch:node": "nodemon --watch dist dist/index.js",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "start": "node dist/index.js",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "spotify-song-name": "file:../songname"
+  }
+}

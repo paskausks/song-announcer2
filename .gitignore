@@ -1,6 +1,8 @@
 songname/native/target
 songname/native/index.node
 songname/native/artifacts.json
+server/dist/
 **/*~
+**/yarn-error.log
 **/node_modules
 **/.DS_Store
