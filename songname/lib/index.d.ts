@@ -1,6 +1,6 @@
 /**
 * Get currently playing Spotify song.
-* Throws an error if Shopify is not 
+* Throws an error if Spotify is not 
 * running or is paused.
 */
 declare function songName(): string;

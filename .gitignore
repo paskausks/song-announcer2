@@ -3,6 +3,7 @@ songname/native/index.node
 songname/native/artifacts.json
 server/dist/
 **/*~
+**/.env
 **/yarn-error.log
 **/node_modules
 **/.DS_Store

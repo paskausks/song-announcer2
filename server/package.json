@@ -6,6 +6,7 @@
   "private": true,
   "devDependencies": {
     "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.17",
     "@typescript-eslint/eslint-plugin": "^2.11.0",
     "@typescript-eslint/parser": "^2.11.0",
     "eslint": "^6.7.2",
@@ -21,16 +22,17 @@
     "build": "tsc",
     "build:watch": "concurrently -p \"[{name}]\" -n \"TSC,Node\" \"npm run build:watch:tsc\" \"npm run build:watch:node\"",
     "build:watch:tsc": "tsc -w",
-    "build:watch:node": "nodemon --watch dist dist/index.js",
+    "build:watch:node": "nodemon --watch dist -r dotenv/config dist/index.js",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
-    "start": "node dist/index.js",
+    "start": "node -r dotenv/config dist/index.js",
     "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "spotify-song-name": "file:../songname"
   }
 }
