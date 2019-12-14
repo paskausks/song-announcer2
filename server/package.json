@@ -6,7 +6,9 @@
   "private": true,
   "devDependencies": {
     "@types/jest": "^24.0.23",
+    "@types/koa": "^2.11.0",
     "@types/node": "^12.12.17",
+    "@types/signale": "^1.2.1",
     "@typescript-eslint/eslint-plugin": "^2.11.0",
     "@typescript-eslint/parser": "^2.11.0",
     "eslint": "^6.7.2",
@@ -33,6 +35,11 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "koa": "^2.11.0",
+    "signale": "^1.4.0",
     "spotify-song-name": "file:../songname"
+  },
+  "signale": {
+    "displayLabel": false
   }
 }
