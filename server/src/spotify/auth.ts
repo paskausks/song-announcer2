@@ -33,16 +33,19 @@ export interface OAuthToken {
     /**
      * OAuth token.
      */
+    // eslint-disable-next-line camelcase
    access_token: string,
 
    /**
     * Time until the OAuth token expires.
     */
+    // eslint-disable-next-line camelcase
    expires_in: number,
 
    /**
     * Always set to "bearer"
     */
+    // eslint-disable-next-line camelcase
    token_type: string,
 
    /**
@@ -55,7 +58,6 @@ export interface OAuthToken {
  * Spotify Client Auth via OAuth.
  */
 class Auth {
-
     private readonly TOKEN_ENDPOINT: string = 'https://accounts.spotify.com/api/token';
 
     /**
@@ -81,9 +83,9 @@ class Auth {
             throw new Error('Environment variables missing!');
         }
 
-        return new Auth ({
+        return new Auth({
             clientID,
-            clientSecret
+            clientSecret,
         });
     }
 
@@ -100,17 +102,17 @@ class Auth {
         const response = await this.fetch(this.TOKEN_ENDPOINT, {
             method: 'POST',
             headers: {
-                 'Content-Type': 'application/x-www-form-urlencoded',
-                 'Authorization': `Basic ${this.formatClientCredentials()}`,
+                'Content-Type': 'application/x-www-form-urlencoded',
+                Authorization: `Basic ${this.formatClientCredentials()}`,
             },
-            body: this.getAuthParams(),
+            body: Auth.getAuthParams(),
         });
 
         if (!response.ok) {
             throw new Error('Authentication failure');
         }
 
-        return await response.json();
+        return response.json();
     }
 
     /**
@@ -120,14 +122,14 @@ class Auth {
     private formatClientCredentials(): string {
         return Buffer.from(
             `${this.clientID}:${this.clientSecret}`,
-            'binary'
+            'binary',
         ).toString('base64');
     }
 
     /**
      * Get OAuth token request parameters.
      */
-    private getAuthParams(): URLSearchParams {
+    private static getAuthParams(): URLSearchParams {
         const params = new URLSearchParams();
 
         params.append('grant_type', 'client_credentials');
