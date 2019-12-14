@@ -1,10 +1,17 @@
-import { oauthToken, spotifySong } from './observables';
+import log from 'signale';
+import WebSocket from 'ws';
+import { spotifySong } from './observables';
 
 const main = async (): Promise<void> => {
-    oauthToken.subscribe();
-    spotifySong.subscribe();
+    const wss = new WebSocket.Server({ port: 8080 });
 
-    await new Promise(() => null);
+    wss.on('connection', (ws) => {
+        spotifySong.subscribe((data) => {
+            ws.send(data);
+        });
+
+        log.info('Client connected.');
+    });
 };
 
 main();

@@ -9,6 +9,7 @@
     "@types/node": "^12.12.17",
     "@types/node-fetch": "^2.5.4",
     "@types/signale": "^1.2.1",
+    "@types/ws": "^6.0.4",
     "@typescript-eslint/eslint-plugin": "^2.11.0",
     "@typescript-eslint/parser": "^2.11.0",
     "eslint": "^6.7.2",
@@ -38,7 +39,8 @@
     "node-fetch": "^2.6.0",
     "rxjs": "^6.5.3",
     "signale": "^1.4.0",
-    "spotify-song-name": "file:../songname"
+    "spotify-song-name": "file:../songname",
+    "ws": "^7.2.1"
   },
   "signale": {
     "displayLabel": false
