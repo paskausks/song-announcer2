@@ -1,29 +1,23 @@
 import log from 'signale';
-import app from './http';
-import { env, exit } from 'process';
-import { getPort } from './util';
+import { exit } from 'process';
 import { Auth } from './spotify';
 
-const main = () => {
-    const port = getPort();
-    const clientID = env.SPOTIFY_CLIENT_ID;
+const main = async () => {
+    let auth: Auth;
 
-    if (!clientID) {
-        log.error('SPOTIFY_CLIENT_ID not found in the environment.');
+    try {
+        auth = Auth.fromEnv();
+    } catch {
+        log.error('Environment variables missing!');
         exit(1);
     }
 
-    const auth = new Auth({
-        redirectURI: `http://localhost:${port}`,
-        clientID,
-    });
-
-    if (!auth.token) {
-        log.log(`Please go to ${auth.getAuthUrl()} to authenticate!`);
+    try {
+        await auth.authenticate();
+    } catch {
+        log.error('Authentication error!');
+        exit(1);
     }
-
-    app.listen(port);
-    log.success('Server running!');
 };
 
 main();

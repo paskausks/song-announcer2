@@ -1,1 +1,1 @@
-export { default as Auth, AuthConfig } from './auth';
+export { default as Auth, AuthConfig, OAuthToken } from './auth';
