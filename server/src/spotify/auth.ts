@@ -1,6 +1,7 @@
+import { env } from 'process';
 import fetch from 'node-fetch';
 import { FetchLike } from './types';
-import { env } from 'process';
+
 
 /**
  * Spotify Auth configuration object
@@ -39,10 +40,16 @@ export interface OAuthToken {
     */
    expires_in: number,
 
+   /**
+    * Always set to "bearer"
+    */
    token_type: string,
-}
 
-type OAuthTokenOptional = OAuthToken | null;
+   /**
+    * Available scopes for this token.
+    */
+   scope: string,
+}
 
 /**
  * Spotify Client Auth via OAuth.
@@ -66,11 +73,6 @@ class Auth {
       */
     private clientSecret: string;
 
-    /**
-      * Currently active, valid OAuth token
-      */
-    private _token: OAuthTokenOptional = null;
-
     static fromEnv(): Auth {
         const clientID = env.SPOTIFY_CLIENT_ID;
         const clientSecret = env.SPOTIFY_CLIENT_SECRET;
@@ -92,20 +94,6 @@ class Auth {
     }
 
     /**
-     * Get currently active OAuth token
-     */
-    get token(): OAuthTokenOptional {
-        return this._token;
-    }
-
-    /**
-     * Set currently active OAuth token
-     */
-    set token(value: OAuthTokenOptional) {
-        this._token = value;
-    }
-
-    /**
      * Get Spotify OAuth token
      */
     async getToken(): Promise<OAuthToken> {
@@ -122,9 +110,7 @@ class Auth {
             throw new Error('Authentication failure');
         }
 
-        const token: OAuthToken = await response.json();
-        this.token = token
-        return token;
+        return await response.json();
     }
 
     /**

@@ -1,23 +1,11 @@
-import log from 'signale';
-import { exit } from 'process';
-import { Auth } from './spotify';
+import { oauthToken, spotifySong } from './observables';
 
 const main = async () => {
-    let auth: Auth;
+    oauthToken.subscribe(console.log);
+    spotifySong.subscribe(console.log);
 
-    try {
-        auth = Auth.fromEnv();
-    } catch {
-        log.error('Environment variables missing!');
-        exit(1);
-    }
-
-    try {
-        await auth.authenticate();
-    } catch {
-        log.error('Authentication error!');
-        exit(1);
-    }
+    await new Promise(() => null);
 };
 
 main();
+

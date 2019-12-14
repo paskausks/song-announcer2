@@ -36,6 +36,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "node-fetch": "^2.6.0",
+    "rxjs": "^6.5.3",
     "signale": "^1.4.0",
     "spotify-song-name": "file:../songname"
   },

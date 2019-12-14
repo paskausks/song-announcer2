@@ -31,6 +31,7 @@ describe('Spotify Auth', () => {
                 access_token: 'abc',
                 token_type: 'bearer',
                 expires_in: 3600,
+                scope: '',
             };
             const fakeJson = jest.fn(async (): Promise<OAuthToken> => tokenData);
             const fetch = jest.fn(async (): Promise<FetchLikeResponse> => ({
