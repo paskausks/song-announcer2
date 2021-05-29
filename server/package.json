@@ -40,7 +40,7 @@
     "rxjs": "^6.5.3",
     "signale": "^1.4.0",
     "spotify-song-name": "file:../songname",
-    "ws": "^7.2.1"
+    "ws": "^7.4.6"
   },
   "signale": {
     "displayLabel": false
